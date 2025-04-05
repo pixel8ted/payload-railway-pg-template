@@ -13,7 +13,7 @@
     "lint": "cross-env NODE_OPTIONS=--no-deprecation next lint",
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
-    "migrate": "payload migrate"
+    "migrate": "pnpm exec payload migrate"
   },
   "dependencies": {
     "@payloadcms/next": "3.31.0",
