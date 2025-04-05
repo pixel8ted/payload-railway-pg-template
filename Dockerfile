@@ -4,7 +4,7 @@
 FROM node:22.12.0-alpine AS base
 
 # Install latest corepack
-RUN pnpm install -g corepack@0.32.0 && corepack enable
+RUN npm install -g corepack@0.32.0 && corepack enable
 
 # Install dependencies only when needed
 FROM base AS deps
