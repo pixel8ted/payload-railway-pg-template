@@ -1,5 +1,5 @@
 {
-  "name": "topatx-payload",
+  "name": "payload-rw-template",
   "version": "1.0.0",
   "description": "A blank template to get started with Payload 3.0",
   "license": "MIT",
@@ -46,5 +46,6 @@
     "onlyBuiltDependencies": [
       "sharp"
     ]
-  }
+  },
+  "packageManager": "pnpm@10.7.1"
 }
