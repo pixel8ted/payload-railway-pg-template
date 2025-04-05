@@ -33,19 +33,24 @@ COPY . .
 # Uncomment the following line in case you want to disable telemetry during the build.
 ENV NEXT_TELEMETRY_DISABLED 1
 
+# Run the build command first
 RUN \
-  if [ -f yarn.lock ]; then yarn run build ; \
-  elif [ -f package-lock.json ]; then npm run build ; \
-  elif [ -f pnpm-lock.yaml ]; then pnpm run build ; \
+  if [ -f yarn.lock ]; then yarn run build; \
+  elif [ -f package-lock.json ]; then npm run build; \
+  elif [ -f pnpm-lock.yaml ]; then pnpm run build; \
   else echo "Lockfile not found." && exit 1; \
   fi
 
-RUN \
-  if [ -f yarn.lock ]; then yarn run migrate ; \
-  elif [ -f package-lock.json ]; then npm run migrate ; \
-  elif [ -f pnpm-lock.yaml ]; then pnpm run migrate ; \
-  else echo "Lockfile not found." && exit 1; \
-  fi
+# Then run the migrate command
+# Note: You might need your DATABASE_URI available at build time for migrations.
+# If migrations fail here, consider running them as an entrypoint command
+# or a separate step after the build but before starting the app in production.
+# RUN \
+#  if [ -f yarn.lock ]; then yarn run migrate; \
+#  elif [ -f package-lock.json ]; then npm run migrate; \
+#  elif [ -f pnpm-lock.yaml ]; then pnpm run migrate; \
+#  else echo "Lockfile not found." && exit 1; \
+#  fi
 
 
 # Production image, copy all the files and run next
