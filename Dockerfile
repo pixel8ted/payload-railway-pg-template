@@ -4,7 +4,7 @@
 FROM node:22.12.0-alpine AS base
 
 # Install latest corepack
-RUN npm install -g corepack@0.32.0 && corepack enable
+RUN pnpm install -g corepack@0.32.0 && corepack enable
 
 # Install dependencies only when needed
 FROM base AS deps
@@ -34,11 +34,13 @@ COPY . .
 ENV NEXT_TELEMETRY_DISABLED 1
 
 RUN \
-  if [ -f yarn.lock ]; then yarn run build; \
-  elif [ -f package-lock.json ]; then npm run build; \
-  elif [ -f pnpm-lock.yaml ]; then pnpm run build; \
+  if [ -f yarn.lock ]; then yarn run build migrate; \
+  elif [ -f package-lock.json ]; then npm run build migrate; \
+  elif [ -f pnpm-lock.yaml ]; then pnpm run build migrate; \
   else echo "Lockfile not found." && exit 1; \
   fi
+
+
 
 # Production image, copy all the files and run next
 FROM base AS runner
